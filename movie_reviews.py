@@ -76,6 +76,5 @@ chart = alt.Chart(movie_reviews).mark_bar().encode(
     fold = ['critic_score', 'user_score']
 )
 
-AgGrid(movie_reviews)
-# st.pyplot(fig=fig)
+st.dataframe(movie_reviews)
 st.altair_chart(chart)
