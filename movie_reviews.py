@@ -66,14 +66,33 @@ movie_reviews['critic_score'] = movie_reviews.critic_score.astype(float)
 movie_reviews['user_score'] = movie_reviews.user_score.astype(float)
 movie_reviews['user_score'] = movie_reviews['user_score'] * 10
 
-chart = alt.Chart(movie_reviews).mark_bar().encode(
+bar_chart = alt.Chart(movie_reviews).mark_bar().encode(
     x='scores:Q',
     y='name:N',
     color='type:N'
 ).transform_fold(
     as_ = ['type', 'scores'],
     fold = ['critic_score', 'user_score']
+).configure_axis(
+    labelLimit=250
+).properties(
+    width=850
 )
 
-st.dataframe(movie_reviews)
-st.altair_chart(chart)
+line_chart = alt.Chart(movie_reviews).mark_line(
+    point=alt.OverlayMarkDef(color='blue')
+    ).encode(
+    x='date:T',
+    y='scores:Q',
+    color='type:N',
+    tooltip='name:N'
+).transform_fold(
+    as_ = ['type', 'scores'],
+    fold = ['critic_score', 'user_score']
+).properties(
+    width=850
+)
+
+st.dataframe(movie_reviews, width=100)
+st.altair_chart(bar_chart)
+st.altair_chart(line_chart)
