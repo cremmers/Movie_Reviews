@@ -93,6 +93,6 @@ line_chart = alt.Chart(movie_reviews).mark_line(
     width=850
 )
 
-st.dataframe(movie_reviews)
+st.dataframe(movie_reviews, use_container_width=True)
 st.altair_chart(bar_chart)
 st.altair_chart(line_chart)
