@@ -62,6 +62,8 @@ for review in soup.find_all('div', class_='clamp-userscore'):
 movie_reviews = pd.DataFrame(review_dict)
 movie_reviews = movie_reviews[movie_reviews['user_score'] != 'tbd']
 movie_reviews = movie_reviews.iloc[:25]
+movie_reviews.reset_index(inplace=True)
+movie_reviews.drop('index', axis=1, inplace=True)
 movie_reviews['critic_score'] = movie_reviews.critic_score.astype(float)
 movie_reviews['user_score'] = movie_reviews.user_score.astype(float)
 movie_reviews['user_score'] = movie_reviews['user_score'] * 10
